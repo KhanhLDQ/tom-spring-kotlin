@@ -9,4 +9,128 @@ servers:
   - url: https://tom-kotlin.prod.com/
     description: prod
 security:
-  - BearerAuth: []
+  - BearerAuth: [ ]
+paths:
+  /api/v1/user/email:
+    patch:
+      tags:
+        - user-resource
+      summary: change user email
+      operationId: changeEmail
+      description: method to change user email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+              description: email to register
+              example:
+                email: "tom@gmail.com"
+        required: true
+      responses:
+        '200':
+          description: update email successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoResponse'
+  /api/v1/user/password:
+    patch:
+      tags:
+        - user-resource
+      summary: change user password
+      operationId: changePassword
+      description: method to change user password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: update password successfully
+          content:
+            application/json: { }
+  /api/v1/user/info:
+    patch:
+      tags:
+        - user-resource
+      summary: change user info
+      operationId: changeInfo
+      description: method to change user info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfoUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: update user info successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoResponse'
+    get:
+      tags:
+        - user-resource
+      summary: get user info
+      operationId: fetchInfo
+      description: method to get user info
+      responses:
+        '200':
+          description: get user info successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoResponse'
+
+components:
+  schemas:
+    UserInfoResponse:
+      required:
+        - email
+        - firstName
+        - lastName
+        - appUsername
+      type: object
+      properties:
+        firstName:
+          type: string
+          maxLength: 30
+          pattern: \w+
+        lastName:
+          type: string
+          maxLength: 30
+          pattern: \w+
+        email:
+          type: string
+        appUsername:
+          type: string
+    UserInfoUpdateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          maxLength: 30
+          pattern: \w+
+        lastName:
+          type: string
+          maxLength: 30
+          pattern: \w+
+    UserPasswordUpdateRequest:
+      required:
+        - currentPassword
+        - newPassword
+        - confirmPassword
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+        confirmPassword:
+          type: string
