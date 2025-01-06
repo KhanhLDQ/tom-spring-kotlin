@@ -134,3 +134,38 @@ components:
           type: string
         confirmPassword:
           type: string
+    Category:
+      type: string
+      enum:
+        - FRUITS
+        - CEREAL
+        - VEGETABLES
+        - CANNED_GOODS
+        - DAIRY
+        - MEAT
+        - FISH
+        - SEAFOOD
+        - DELI
+        - SPICES
+        - BREAD
+        - BAKERY
+        - BEVERAGES
+        - PASTA
+        - RICE
+        - BAKING
+        - SNACKS
+        - SWEET
+        - FROZEN_FOOD
+        - ICE_CREAM
+        - HOUSEHOLD_SUPPLIES
+        - PET_FOOD
+        - OTHER
+    Hypermarket:
+      type: string
+      enum:
+        - BILLA
+        - SPAR
+        - LIDL
+        - HOFER
+        - ETSAN
+        - OTHER
