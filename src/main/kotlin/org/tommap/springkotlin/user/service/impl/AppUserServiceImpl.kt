@@ -23,7 +23,7 @@ class AppUserServiceImpl (
     override fun changeEmail(request: Map<String, String>): UserInfoResponse {
         val currentUser: AppUser = clientSessionService.getCurrentLoggedInUser()
 
-        val newEmail = request["email"] ?: throw BadRequestException("Email is required") //?: - handle null value
+        val newEmail = request["email"] ?: throw BadRequestException("Email is required!") //?: - handle null value
         validateEmail(newEmail, currentUser.id)
 
         currentUser.email = newEmail
@@ -36,11 +36,11 @@ class AppUserServiceImpl (
         val currentUser: AppUser = clientSessionService.getCurrentLoggedInUser()
 
         if (!passwordEncoder.matches(request.currentPassword, currentUser.appPassword)) {
-            throw PasswordMismatchException("Current password is incorrect")
+            throw PasswordMismatchException("Current password is incorrect!")
         }
 
         if (request.newPassword != request.confirmPassword) {
-            throw PasswordMismatchException("New password and confirm password do not match")
+            throw PasswordMismatchException("New password and confirm password do not match!")
         }
 
         currentUser.appPassword = passwordEncoder.encode(request.newPassword)
@@ -69,12 +69,12 @@ class AppUserServiceImpl (
         val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)\$".toRegex()
 
         if (!email.matches(emailRegex)) {
-            throw BadRequestException("Invalid email format")
+            throw BadRequestException("Invalid email format!")
         }
 
         appUserRepository.findByEmail(email)?.let { appUser -> //?.let - execute only appUser is not null
             if (appUser.id != currentUserId) {
-                throw BadRequestException("Email is already used by another user")
+                throw BadRequestException("Email is already used by another user!")
             }
         }
     }

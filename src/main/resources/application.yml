@@ -9,20 +9,21 @@ spring:
   application:
     name: tom-spring-kotlin
   datasource:
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:password}
-    url: jdbc:postgresql://${DATABASE_HOST:host}:${DATABASE_PORT:port}/${DATABASE_NAME:database}
+    username: ${DB_USERNAME:tom}
+    password: ${DB_PASSWORD:123456}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:grocery}
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        ddl-auto: update
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         jdbc:
           lob:
             non_contextual_creation: true
+
   mail:
     host: ${MAIL_HOST:smtp.example.com}
     port: ${MAIL_PORT:port.example.com}
